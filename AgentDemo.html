@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rajat Mehra — Robotics Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --graphite:#14171A;
+    --graphite-2:#1B1F23;
+    --steel:#5B8DBE;
+    --amber:#E8A33D;
+    --off-white:#EDEFF1;
+    --slate:#8B95A1;
+    --line:#2A2F35;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--graphite);
+    color:var(--off-white);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  ::selection{background:var(--amber);color:var(--graphite);}
+
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{
+    max-width:1140px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ===== NAV ===== */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:50;
+    background:rgba(20,23,26,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 32px;
+    max-width:1140px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:18px;
+    letter-spacing:0.02em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .logo-mark{
+    width:10px;height:10px;
+    background:var(--amber);
+    border-radius:2px;
+    display:inline-block;
+  }
+  .nav-links{
+    display:flex;
+    gap:36px;
+    font-size:14px;
+    color:var(--slate);
+    font-family:'JetBrains Mono',monospace;
+  }
+  .nav-links a:hover{color:var(--off-white);}
+  .nav-links span{color:var(--amber);}
+
+  @media (max-width:720px){
+    .nav-links{display:none;}
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding-top:90px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:48px;
+    align-items:center;
+    width:100%;
+  }
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-rig{order:-1;}
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--amber);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:24px;height:1px;
+    background:var(--amber);
+  }
+
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(40px,6vw,68px);
+    line-height:1.04;
+    letter-spacing:-0.01em;
+    margin-bottom:24px;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--steel);
+  }
+
+  .hero p.lead{
+    font-size:17px;
+    color:var(--slate);
+    max-width:460px;
+    margin-bottom:36px;
+  }
+
+  .cta-row{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    padding:14px 26px;
+    border-radius:4px;
+    border:1px solid var(--line);
+    transition:all 0.2s ease;
+    cursor:pointer;
+  }
+  .btn-primary{
+    background:var(--off-white);
+    color:var(--graphite);
+    border:1px solid var(--off-white);
+  }
+  .btn-primary:hover{
+    background:var(--amber);
+    border-color:var(--amber);
+  }
+  .btn-ghost{
+    color:var(--off-white);
+  }
+  .btn-ghost:hover{
+    border-color:var(--steel);
+    color:var(--steel);
+  }
+
+  /* ===== HERO RIG (signature animated arm) ===== */
+  .hero-rig{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  .rig-frame{
+    width:100%;
+    max-width:380px;
+    aspect-ratio:1/1;
+    border:1px solid var(--line);
+    border-radius:8px;
+    position:relative;
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/20px 20px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/20px 20px,
+      var(--graphite-2);
+  }
+  .rig-label{
+    position:absolute;
+    top:12px;left:14px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    color:var(--slate);
+    letter-spacing:0.05em;
+  }
+  .rig-label-status{
+    position:absolute;
+    top:12px;right:14px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    color:var(--amber);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .rig-label-status::before{
+    content:'';
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--amber);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1;}
+    50%{opacity:0.3;}
+  }
+
+  .arm-svg{
+    width:100%;height:100%;
+  }
+  .joint{
+    transform-origin:center;
+  }
+  #seg1{animation:sweep1 6s ease-in-out infinite;}
+  #seg2{animation:sweep2 6s ease-in-out infinite;}
+  #seg3{animation:sweep3 6s ease-in-out infinite;}
+
+  @keyframes sweep1{
+    0%,100%{transform:rotate(0deg);}
+    50%{transform:rotate(-14deg);}
+  }
+  @keyframes sweep2{
+    0%,100%{transform:rotate(0deg);}
+    50%{transform:rotate(18deg);}
+  }
+  @keyframes sweep3{
+    0%,100%{transform:rotate(0deg);}
+    50%{transform:rotate(-22deg);}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    #seg1,#seg2,#seg3,.rig-label-status::before{animation:none;}
+  }
+
+  /* ===== SPEC STRIP ===== */
+  .spec-strip{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:var(--graphite-2);
+  }
+  .spec-strip .wrap{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    padding:0;
+  }
+  .spec-cell{
+    padding:28px 24px;
+    border-right:1px solid var(--line);
+  }
+  .spec-cell:last-child{border-right:none;}
+  .spec-num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:28px;
+    font-weight:600;
+    color:var(--steel);
+  }
+  .spec-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--slate);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-top:4px;
+  }
+  @media (max-width:720px){
+    .spec-strip .wrap{grid-template-columns:repeat(2,1fr);}
+    .spec-cell:nth-child(2){border-right:none;}
+  }
+
+  /* ===== SECTIONS ===== */
+  section.block{
+    padding:120px 0;
+  }
+  .section-head{
+    margin-bottom:64px;
+  }
+  .section-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--amber);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(28px,3.4vw,40px);
+    font-weight:600;
+    max-width:600px;
+    letter-spacing:-0.01em;
+  }
+
+  /* Build log style — disciplined, schematic */
+  .systems{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media (max-width:900px){
+    .systems{grid-template-columns:1fr;}
+  }
+  .system-card{
+    background:var(--graphite);
+    padding:36px 32px;
+  }
+  .system-id{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--slate);
+    margin-bottom:18px;
+  }
+  .system-card h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:19px;
+    font-weight:600;
+    margin-bottom:12px;
+  }
+  .system-card p{
+    color:var(--slate);
+    font-size:14.5px;
+  }
+  .system-icon{
+    margin-bottom:20px;
+  }
+
+  /* ===== LOG / TIMELINE ===== */
+  .log{
+    border-left:1px solid var(--line);
+    margin-left:6px;
+  }
+  .log-entry{
+    position:relative;
+    padding:0 0 44px 32px;
+  }
+  .log-entry:last-child{padding-bottom:0;}
+  .log-entry::before{
+    content:'';
+    position:absolute;
+    left:-5px;top:4px;
+    width:9px;height:9px;
+    background:var(--graphite);
+    border:2px solid var(--steel);
+    border-radius:50%;
+  }
+  .log-date{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--amber);
+    margin-bottom:6px;
+  }
+  .log-entry h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:17px;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .log-entry p{
+    color:var(--slate);
+    font-size:14.5px;
+    max-width:560px;
+  }
+
+  /* ===== CTA ===== */
+  .contact{
+    background:var(--graphite-2);
+    border-top:1px solid var(--line);
+    padding:100px 0;
+    text-align:center;
+  }
+  .contact h2{margin:0 auto 18px;}
+  .contact p{
+    color:var(--slate);
+    max-width:440px;
+    margin:0 auto 36px;
+  }
+  .contact .cta-row{justify-content:center;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:28px 0;
+  }
+  footer .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--slate);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><span class="logo-mark"></span>RAJAT MEHRA ROBOTICS</div>
+    <div class="nav-links">
+      <a href="#systems">Systems</a>
+      <a href="#log">Build Log</a>
+      <a href="#contact">Contact</a>
+      <span>EST. 2026</span>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Robotics Engineering &amp; Automation</div>
+      <h1>Machines built<br>to <em>move with</em><br>precision.</h1>
+      <p class="lead">Independent robotics engineering by Rajat Mehra — designing, building, and programming robots from first principles, one calibrated joint at a time.</p>
+      <div class="cta-row">
+        <a href="#contact" class="btn btn-primary">Get in touch</a>
+        <a href="#systems" class="btn btn-ghost">View systems</a>
+      </div>
+    </div>
+
+    <div class="hero-rig">
+      <div class="rig-frame">
+        <div class="rig-label">UNIT // ARM-01</div>
+        <div class="rig-label-status">CALIBRATING</div>
+        <svg class="arm-svg" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="190" cy="320" r="22" fill="#1B1F23" stroke="#2A2F35" stroke-width="2"/>
+          <circle cx="190" cy="320" r="6" fill="#5B8DBE"/>
+
+          <g class="joint" id="seg1" style="transform-origin:190px 320px;">
+            <rect x="184" y="195" width="12" height="125" rx="4" fill="#2A2F35"/>
+            <circle cx="190" cy="195" r="16" fill="#1B1F23" stroke="#5B8DBE" stroke-width="2"/>
+
+            <g class="joint" id="seg2" style="transform-origin:190px 195px;">
+              <rect x="184" y="90" width="12" height="105" rx="4" fill="#2A2F35"/>
+              <circle cx="190" cy="90" r="14" fill="#1B1F23" stroke="#5B8DBE" stroke-width="2"/>
+
+              <g class="joint" id="seg3" style="transform-origin:190px 90px;">
+                <rect x="184" y="40" width="12" height="50" rx="4" fill="#2A2F35"/>
+                <circle cx="190" cy="40" r="5" fill="#E8A33D"/>
+                <path d="M178 40 L202 40 M190 28 L190 52" stroke="#E8A33D" stroke-width="1.5"/>
+              </g>
+            </g>
+          </g>
+
+          <line x1="40" y1="320" x2="340" y2="320" stroke="#2A2F35" stroke-width="1" stroke-dasharray="2 4"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spec-strip">
+  <div class="wrap">
+    <div class="spec-cell">
+      <div class="spec-num">6DOF</div>
+      <div class="spec-tag">Articulation per unit</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-num">±0.2mm</div>
+      <div class="spec-tag">Repeat positioning</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-num">24/7</div>
+      <div class="spec-tag">Autonomous runtime</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-num">100%</div>
+      <div class="spec-tag">In-house design</div>
+    </div>
+  </div>
+</div>
+
+<section class="block" id="systems">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">What gets built</div>
+      <h2>Three layers, one machine — mechanical, electrical, and intelligent.</h2>
+    </div>
+
+    <div class="systems">
+      <div class="system-card">
+        <div class="system-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="11" stroke="#5B8DBE" stroke-width="2"/><circle cx="16" cy="16" r="3" fill="#5B8DBE"/><path d="M16 2v5M16 25v5M2 16h5M25 16h5" stroke="#5B8DBE" stroke-width="2"/></svg>
+        </div>
+        <div class="system-id">01 / MECHANICAL</div>
+        <h3>Frame &amp; Actuation</h3>
+        <p>Structural design, joint linkages, and actuator selection — built for load, reach, and repeatable motion under real-world stress.</p>
+      </div>
+      <div class="system-card">
+        <div class="system-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="6" y="6" width="20" height="20" rx="2" stroke="#E8A33D" stroke-width="2"/><path d="M11 6V2M21 6V2M11 30v-4M21 30v-4M6 11H2M6 21H2M30 11h-4M30 21h-4" stroke="#E8A33D" stroke-width="2"/></svg>
+        </div>
+        <div class="system-id">02 / ELECTRICAL</div>
+        <h3>Power &amp; Control</h3>
+        <p>Motor drivers, sensor wiring, and onboard control boards — the nervous system that translates signal into motion.</p>
+      </div>
+      <div class="system-card">
+        <div class="system-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4l10 6v12l-10 6-10-6V10l10-6z" stroke="#8B95A1" stroke-width="2"/><circle cx="16" cy="16" r="4" fill="#8B95A1"/></svg>
+        </div>
+        <div class="system-id">03 / INTELLIGENCE</div>
+        <h3>Firmware &amp; Logic</h3>
+        <p>Embedded code and control loops that let a machine sense its environment and decide, not just execute.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="log">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Build log</div>
+      <h2>A record of what's been built so far.</h2>
+    </div>
+
+    <div class="log">
+      <div class="log-entry">
+        <div class="log-date">PHASE 03</div>
+        <h4>Autonomous navigation trials</h4>
+        <p>Closed-loop testing of obstacle sensing and path correction on the current prototype chassis.</p>
+      </div>
+      <div class="log-entry">
+        <div class="log-date">PHASE 02</div>
+        <h4>Joint calibration pass</h4>
+        <p>Tuned actuator response curves across all six degrees of freedom to reduce positioning drift.</p>
+      </div>
+      <div class="log-entry">
+        <div class="log-date">PHASE 01</div>
+        <h4>Frame &amp; drivetrain assembly</h4>
+        <p>First physical build of the arm structure, motor mounts, and base drivetrain completed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-tag" style="text-align:center;">Let's build something</div>
+    <h2 style="margin:0 auto 18px;">Have a robot in mind?</h2>
+    <p>Reach out to talk through a build, a prototype, or just to see what's on the bench right now.</p>
+    <div class="cta-row">
+      <a href="mailto:hello@rajatmehra.dev" class="btn btn-primary">Email Rajat</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Rajat Mehra Robotics</span>
+    <span>Designed &amp; built independently</span>
+  </div>
+</footer>
+
+</body>
+</html>
